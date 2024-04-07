@@ -3,7 +3,7 @@ package service
 import (
 	"errors"
 
-	"github.com/go-admin-team/go-admin-core/sdk/service"
+    "github.com/go-admin-team/go-admin-core/sdk/service"
 	"gorm.io/gorm"
 
 	"go-admin/app/admin/models"
@@ -59,9 +59,9 @@ func (e *TbTeachAll) Get(d *dto.TbTeachAllGetReq, p *actions.DataPermission, mod
 
 // Insert 创建TbTeachAll对象
 func (e *TbTeachAll) Insert(c *dto.TbTeachAllInsertReq) error {
-	var err error
-	var data models.TbTeachAll
-	c.Generate(&data)
+    var err error
+    var data models.TbTeachAll
+    c.Generate(&data)
 	err = e.Orm.Create(&data).Error
 	if err != nil {
 		e.Log.Errorf("TbTeachAllService Insert error:%s \r\n", err)
@@ -72,22 +72,22 @@ func (e *TbTeachAll) Insert(c *dto.TbTeachAllInsertReq) error {
 
 // Update 修改TbTeachAll对象
 func (e *TbTeachAll) Update(c *dto.TbTeachAllUpdateReq, p *actions.DataPermission) error {
-	var err error
-	var data = models.TbTeachAll{}
-	e.Orm.Scopes(
-		actions.Permission(data.TableName(), p),
-	).First(&data, c.GetId())
-	c.Generate(&data)
+    var err error
+    var data = models.TbTeachAll{}
+    e.Orm.Scopes(
+            actions.Permission(data.TableName(), p),
+        ).First(&data, c.GetId())
+    c.Generate(&data)
 
-	db := e.Orm.Save(&data)
-	if err = db.Error; err != nil {
-		e.Log.Errorf("TbTeachAllService Save error:%s \r\n", err)
-		return err
-	}
-	if db.RowsAffected == 0 {
-		return errors.New("无权更新该数据")
-	}
-	return nil
+    db := e.Orm.Save(&data)
+    if err = db.Error; err != nil {
+        e.Log.Errorf("TbTeachAllService Save error:%s \r\n", err)
+        return err
+    }
+    if db.RowsAffected == 0 {
+        return errors.New("无权更新该数据")
+    }
+    return nil
 }
 
 // Remove 删除TbTeachAll
@@ -99,11 +99,11 @@ func (e *TbTeachAll) Remove(d *dto.TbTeachAllDeleteReq, p *actions.DataPermissio
 			actions.Permission(data.TableName(), p),
 		).Delete(&data, d.GetId())
 	if err := db.Error; err != nil {
-		e.Log.Errorf("Service RemoveTbTeachAll error:%s \r\n", err)
-		return err
-	}
-	if db.RowsAffected == 0 {
-		return errors.New("无权删除该数据")
-	}
+        e.Log.Errorf("Service RemoveTbTeachAll error:%s \r\n", err)
+        return err
+    }
+    if db.RowsAffected == 0 {
+        return errors.New("无权删除该数据")
+    }
 	return nil
 }

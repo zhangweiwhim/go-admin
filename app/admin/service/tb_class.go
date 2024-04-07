@@ -12,14 +12,14 @@ import (
 	cDto "go-admin/common/dto"
 )
 
-type TbExam struct {
+type TbClass struct {
 	service.Service
 }
 
-// GetPage 获取TbExam列表
-func (e *TbExam) GetPage(c *dto.TbExamGetPageReq, p *actions.DataPermission, list *[]models.TbExam, count *int64) error {
+// GetPage 获取TbClass列表
+func (e *TbClass) GetPage(c *dto.TbClassGetPageReq, p *actions.DataPermission, list *[]models.TbClass, count *int64) error {
 	var err error
-	var data models.TbExam
+	var data models.TbClass
 
 	err = e.Orm.Model(&data).
 		Scopes(
@@ -30,15 +30,15 @@ func (e *TbExam) GetPage(c *dto.TbExamGetPageReq, p *actions.DataPermission, lis
 		Find(list).Limit(-1).Offset(-1).
 		Count(count).Error
 	if err != nil {
-		e.Log.Errorf("TbExamService GetPage error:%s \r\n", err)
+		e.Log.Errorf("TbClassService GetPage error:%s \r\n", err)
 		return err
 	}
 	return nil
 }
 
-// Get 获取TbExam对象
-func (e *TbExam) Get(d *dto.TbExamGetReq, p *actions.DataPermission, model *models.TbExam) error {
-	var data models.TbExam
+// Get 获取TbClass对象
+func (e *TbClass) Get(d *dto.TbClassGetReq, p *actions.DataPermission, model *models.TbClass) error {
+	var data models.TbClass
 
 	err := e.Orm.Model(&data).
 		Scopes(
@@ -47,7 +47,7 @@ func (e *TbExam) Get(d *dto.TbExamGetReq, p *actions.DataPermission, model *mode
 		First(model, d.GetId()).Error
 	if err != nil && errors.Is(err, gorm.ErrRecordNotFound) {
 		err = errors.New("查看对象不存在或无权查看")
-		e.Log.Errorf("Service GetTbExam error:%s \r\n", err)
+		e.Log.Errorf("Service GetTbClass error:%s \r\n", err)
 		return err
 	}
 	if err != nil {
@@ -57,23 +57,23 @@ func (e *TbExam) Get(d *dto.TbExamGetReq, p *actions.DataPermission, model *mode
 	return nil
 }
 
-// Insert 创建TbExam对象
-func (e *TbExam) Insert(c *dto.TbExamInsertReq) error {
+// Insert 创建TbClass对象
+func (e *TbClass) Insert(c *dto.TbClassInsertReq) error {
     var err error
-    var data models.TbExam
+    var data models.TbClass
     c.Generate(&data)
 	err = e.Orm.Create(&data).Error
 	if err != nil {
-		e.Log.Errorf("TbExamService Insert error:%s \r\n", err)
+		e.Log.Errorf("TbClassService Insert error:%s \r\n", err)
 		return err
 	}
 	return nil
 }
 
-// Update 修改TbExam对象
-func (e *TbExam) Update(c *dto.TbExamUpdateReq, p *actions.DataPermission) error {
+// Update 修改TbClass对象
+func (e *TbClass) Update(c *dto.TbClassUpdateReq, p *actions.DataPermission) error {
     var err error
-    var data = models.TbExam{}
+    var data = models.TbClass{}
     e.Orm.Scopes(
             actions.Permission(data.TableName(), p),
         ).First(&data, c.GetId())
@@ -81,7 +81,7 @@ func (e *TbExam) Update(c *dto.TbExamUpdateReq, p *actions.DataPermission) error
 
     db := e.Orm.Save(&data)
     if err = db.Error; err != nil {
-        e.Log.Errorf("TbExamService Save error:%s \r\n", err)
+        e.Log.Errorf("TbClassService Save error:%s \r\n", err)
         return err
     }
     if db.RowsAffected == 0 {
@@ -90,16 +90,16 @@ func (e *TbExam) Update(c *dto.TbExamUpdateReq, p *actions.DataPermission) error
     return nil
 }
 
-// Remove 删除TbExam
-func (e *TbExam) Remove(d *dto.TbExamDeleteReq, p *actions.DataPermission) error {
-	var data models.TbExam
+// Remove 删除TbClass
+func (e *TbClass) Remove(d *dto.TbClassDeleteReq, p *actions.DataPermission) error {
+	var data models.TbClass
 
 	db := e.Orm.Model(&data).
 		Scopes(
 			actions.Permission(data.TableName(), p),
 		).Delete(&data, d.GetId())
 	if err := db.Error; err != nil {
-        e.Log.Errorf("Service RemoveTbExam error:%s \r\n", err)
+        e.Log.Errorf("Service RemoveTbClass error:%s \r\n", err)
         return err
     }
     if db.RowsAffected == 0 {

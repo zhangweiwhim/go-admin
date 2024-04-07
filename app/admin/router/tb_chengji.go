@@ -10,13 +10,13 @@ import (
 )
 
 func init() {
-	routerCheckRole = append(routerCheckRole, registerTbTeacherRouter)
+	routerCheckRole = append(routerCheckRole, registerTbChengjiRouter)
 }
 
-// registerTbTeacherRouter
-func registerTbTeacherRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddleware) {
-	api := apis.TbTeacher{}
-	r := v1.Group("/tb-teacher").Use(authMiddleware.MiddlewareFunc()).Use(middleware.AuthCheckRole())
+// registerTbChengjiRouter
+func registerTbChengjiRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddleware) {
+	api := apis.TbChengji{}
+	r := v1.Group("/tb-chengji").Use(authMiddleware.MiddlewareFunc()).Use(middleware.AuthCheckRole())
 	{
 		r.GET("", actions.PermissionAction(), api.GetPage)
 		r.GET("/:id", actions.PermissionAction(), api.Get)
